@@ -21,21 +21,30 @@ sumIntList :: IntList -> Int
 sumIntList Nil = 0
 sumIntList (Cons head tail) = head + sumIntList tail
 
-foldIntList :: (Int -> IntList -> Int) -> Int -> IntList -> Int
+foldIntList :: (IntList -> Int -> Int) -> Int -> IntList -> Int
 foldIntList f acc Nil = acc
-foldIntList f acc (Cons head tail) = f (foldIntList f acc tail) (Cons head Nil) 
+foldIntList f acc (Cons head tail) = f (Cons head Nil) (foldIntList f acc tail) 
 
-lenConsCase :: Int -> IntList -> Int
-lenConsCase acc lst = 1 + acc
+lenConsCase :: IntList -> Int -> Int
+lenConsCase lst acc = 1 + acc
 
-sumConsCase :: Int -> IntList -> Int
-sumConsCase acc Nil = acc
-sumConsCase acc (Cons head tail) = head + acc
+sumConsCase :: IntList -> Int -> Int
+sumConsCase Nil acc = acc
+sumConsCase (Cons head tail) acc = head + acc
 
-foldList :: (Int -> IntList -> Int) -> IntList -> Int
-foldList f lst = foldIntList f 0 lst
+foldList :: IntList -> Int -> (IntList -> Int -> Int) -> Int
+foldList lst acc f = foldIntList f acc lst
 
--- foldList sumConsCase list
+-- foldList list 0 sumConsCase
 -- returns 6
--- foldList lenConsCase list
+-- foldList list 0 lenConsCase
 -- returns 3
+
+
+length' :: IntList -> Int
+length' lst = foldList lst 0 lenConsCase
+
+sum' :: IntList -> Int
+sum' lst = foldList lst 0 sumConsCase
+
+
