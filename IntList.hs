@@ -34,3 +34,8 @@ sumConsCase acc (Cons head tail) = head + acc
 
 foldList :: (Int -> IntList -> Int) -> IntList -> Int
 foldList f lst = foldIntList f 0 lst
+
+-- foldList sumConsCase list
+-- returns 6
+-- foldList lenConsCase list
+-- returns 3
