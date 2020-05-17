@@ -47,4 +47,7 @@ length' lst = foldList lst 0 lenConsCase
 sum' :: IntList -> Int
 sum' lst = foldList lst 0 sumConsCase
 
-
+-- length' list
+-- returns 3
+-- sum' list
+-- returns 6
