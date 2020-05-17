@@ -21,4 +21,16 @@ sumIntList :: IntList -> Int
 sumIntList Nil = 0
 sumIntList (Cons head tail) = head + sumIntList tail
 
---foldIntList :: 
+foldIntList :: (Int -> IntList -> Int) -> Int -> IntList -> Int
+foldIntList f acc Nil = acc
+foldIntList f acc lst = f acc lst
+
+lenConsCase :: Int -> IntList -> Int
+lenConsCase acc Nil = acc
+lenConsCase acc lst = 1 + acc
+
+lenFoldList :: IntList -> Int
+lenFoldList lst = foldIntList lenConsCase 0 lst
+
+
+
