@@ -28,12 +28,9 @@ foldIntList f acc (Cons head tail) = f (foldIntList f acc tail) (Cons head Nil)
 lenConsCase :: Int -> IntList -> Int
 lenConsCase acc lst = 1 + acc
 
-lenFoldList :: IntList -> Int
-lenFoldList lst = foldIntList lenConsCase 0 lst
-
 sumConsCase :: Int -> IntList -> Int
 sumConsCase acc Nil = acc
 sumConsCase acc (Cons head tail) = head + acc
 
-sumFoldList :: IntList -> Int
-sumFoldList lst = foldIntList sumConsCase 0 lst
+foldList :: (Int -> IntList -> Int) -> IntList -> Int
+foldList f lst = foldIntList f 0 lst
