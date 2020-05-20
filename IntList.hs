@@ -11,7 +11,7 @@ list = mkIntList [1, 2, 3]
 
 lenIntList :: IntList -> Int
 lenIntList Nil = 0
-lenIntList (Cons head tail) = 1 + lenIntList tail
+lenIntList (Cons _ xs) = 1 + lenIntList xs
 
 -- len list
 --why does this give an error when I make it it's own line in the file? 
@@ -19,18 +19,18 @@ lenIntList (Cons head tail) = 1 + lenIntList tail
 
 sumIntList :: IntList -> Int
 sumIntList Nil = 0
-sumIntList (Cons head tail) = head + sumIntList tail
+sumIntList (Cons x xs) = x + sumIntList xs
 
 foldIntList :: (IntList -> Int -> Int) -> Int -> IntList -> Int
-foldIntList f acc Nil = acc
-foldIntList f acc (Cons head tail) = f (Cons head Nil) (foldIntList f acc tail) 
+foldIntList _ acc Nil = acc
+foldIntList f acc (Cons x xs) = f (Cons x Nil) (foldIntList f acc xs) 
 
 lenConsCase :: IntList -> Int -> Int
-lenConsCase lst acc = 1 + acc
+lenConsCase _ acc = 1 + acc
 
 sumConsCase :: IntList -> Int -> Int
-sumConsCase Nil acc = acc
-sumConsCase (Cons head tail) acc = head + acc
+sumConsCase Nil _ = error "Can't call sumConsCase with a Nil value"
+sumConsCase (Cons x xs) acc = x + acc
 
 foldList :: IntList -> Int -> (IntList -> Int -> Int) -> Int
 foldList lst acc f = foldIntList f acc lst

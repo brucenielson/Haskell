@@ -93,3 +93,55 @@ data Shape = Circle Float Float Float | Rectangle Float Float Float Float
 surface :: Shape -> Float
 surface (Circle _ _ r) = pi * r ^ 2
 surface (Rectangle x1 y1 x2 y2) = (abs $ x2 - x1) * (abs $ y2 - y1)
+
+
+-- recursion example (using guards and patterns)
+maximum' :: (Ord a) => [a] -> a
+maximum' [] = error "maximum of empty list"
+maximum' [x] = x
+maximum' (x:xs)
+    | x > maxTail = x
+    | otherwise = maxTail
+    where maxTail = maximum' xs
+
+
+-- recursion example using guards but not patterns because it's just boolean testing
+replicate' :: (Num i, Ord i) => i -> a -> [a]
+replicate' n x
+    | n <= 0 = []
+    | otherwise = x:replicate' (n-1) x
+
+
+-- example of infinite recursion
+repeat' :: a -> [a]
+repeat' x = x:repeat' x
+
+
+-- Quick Sort!
+-- Example of recursion with list comprehensions
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) =
+    let smallerSorted = quicksort [a | a <- xs, a <= x]
+        biggerSorted = quicksort [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
+
+
+quicksort' :: (Ord a) => [a] -> [a]
+quicksort' [] = []
+quicksort' (x:xs) =
+    let smallerSorted = quicksort (filter (<=x) xs)
+        biggerSorted = quicksort (filter (>x) xs)
+    in smallerSorted ++ [x] ++ biggerSorted
+
+-- Testing out partial applications
+multThree :: (Num a) => a -> a -> a -> a
+multThree x y z = x * y * z
+
+--let multTwoWithNine = multThree 9
+
+-- zipWith
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
