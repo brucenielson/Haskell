@@ -30,7 +30,7 @@ lenConsCase _ acc = 1 + acc
 
 sumConsCase :: IntList -> Int -> Int
 sumConsCase Nil _ = error "Can't call sumConsCase with a Nil value"
-sumConsCase (Cons x xs) acc = x + acc
+sumConsCase (Cons x _) acc = x + acc
 
 foldList :: IntList -> Int -> (IntList -> Int -> Int) -> Int
 foldList lst acc f = foldIntList f acc lst
