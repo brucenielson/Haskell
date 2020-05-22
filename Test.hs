@@ -89,7 +89,7 @@ calcBmis xs = [bmi w h | (w, h) <- xs]
 
 
 
-data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+data Shape = Circle Float Float Float | Rectangle Float Float Float Float deriving (Show)
 surface :: Shape -> Float
 surface (Circle _ _ r) = pi * r ^ 2
 surface (Rectangle x1 y1 x2 y2) = (abs $ x2 - x1) * (abs $ y2 - y1)
@@ -145,3 +145,4 @@ zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
 zipWith' _ [] _ = []
 zipWith' _ _ [] = []
 zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
+
